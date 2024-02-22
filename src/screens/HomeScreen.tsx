@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, Pressable, View } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 import ListItem from '../components/ListItem';
 
@@ -7,12 +7,21 @@ import { useGetCoins } from '../hooks/useCoins';
 import { useIsFocused } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { StackParamsProps } from '../../App';
+import StyledText from '../components/StyledText';
+import CustomButton from '../components/CustomButton';
 
 type HomeScreenProps = NativeStackScreenProps<StackParamsProps, 'Overview'>;
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
-  const { data, hasNextPage, fetchNextPage, refetch, isRefetching } =
-    useGetCoins();
+  const {
+    data,
+    hasNextPage,
+    fetchNextPage,
+    refetch,
+    isRefetching,
+    isLoading,
+    isError,
+  } = useGetCoins();
 
   const flattenData = data?.pages.flatMap((page) => page.data);
 
@@ -36,7 +45,13 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
 
   return (
     <View className="bg-neutral-900 flex-1 px-4">
-      {isRefetching ? (
+      {isError && (
+        <View className="flex-1 items-center justify-center">
+          <StyledText content="Something went wrong..." customClass="mb-4" />
+          <CustomButton title="Retry" onPress={() => refetch()} />
+        </View>
+      )}
+      {isRefetching || isLoading ? (
         <View className="flex-1 items-center justify-center">
           <ActivityIndicator size="large" />
         </View>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, StyleSheet } from 'react-native';
+import { Pressable } from 'react-native';
 import StyledText from './StyledText';
 
 type CustomButtonProps = {
@@ -24,11 +24,5 @@ const CustomButton: React.FC<CustomButtonProps> = ({ title, onPress }) => {
     </Pressable>
   );
 };
-
-const style = StyleSheet.create({
-  button: {
-    borderRadius: 100,
-  },
-});
 
 export default CustomButton;

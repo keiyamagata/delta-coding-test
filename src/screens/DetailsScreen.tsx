@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Image, TouchableWithoutFeedback, View } from 'react-native';
+import React, { useState } from 'react';
+import { View } from 'react-native';
 import StyledText from '../components/StyledText';
 import { formatCurrency } from '@coingecko/cryptoformat';
 
